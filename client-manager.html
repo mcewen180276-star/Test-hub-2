@@ -385,6 +385,44 @@ async function importSpecialistProgramme(){
  }catch(e){alert('Could not import programme: '+e.message)}
 }
 document.addEventListener('click',e=>{if(e.target.closest('[data-action="specialistImportNow"]')){e.preventDefault();e.stopImmediatePropagation();importSpecialistProgramme()}},true);
+// Direct Specialist Studio transfer (same-origin iframe, no JSON file required).
+const specialistDirectProtocol='fitness-specialist-direct-v1';
+window.addEventListener('message',async e=>{
+ if(e.origin!==location.origin||e.data?.protocol!==specialistDirectProtocol)return;
+ let sourceOK=false;
+ try{sourceOK=e.source===window.parent.document.getElementById('specialistCentreFrame')?.contentWindow}catch(err){}
+ if(!sourceOK)return;
+ const reply=(data)=>e.source.postMessage({protocol:specialistDirectProtocol,...data},e.origin);
+ if(e.data.action==='list-clients'){
+  reply({action:'clients',clients:db.clients.map(c=>({id:c.id,name:c.name}))});return;
+ }
+ if(e.data.action!=='transfer')return;
+ try{
+  const data=e.data.programme,id=e.data.clientId;
+  const chosen=db.clients.find(c=>c.id===id);
+  if(!chosen)throw Error('Client not found. Refresh the client list.');
+  if(data?.format!=='fitness-client-programme-draft-v1'||!Array.isArray(data.weeks)||!data.weeks.length||data.weeks.length>24)throw Error('Invalid specialist programme.');
+  const days=[];
+  for(const [wi,w] of data.weeks.entries()){
+   for(const [si,s] of (Array.isArray(w.sessions)?w.sessions:[]).slice(0,7).entries()){
+    if(days.length>=144)break;
+    days.push({name:`Week ${wi+1} · ${String(s.name||'Session '+(si+1)).slice(0,70)}`,style:String(s.focus||data.trainingType||'Specialist'),exercises:(Array.isArray(s.exercises)?s.exercises:[]).slice(0,25).map(ex=>{
+      const name=String(ex.name||'Exercise'),prescription=String(ex.prescription||'');
+      const match=db.exercises.find(x=>x.name.toLowerCase()===name.toLowerCase());
+      return {id:uid(),exerciseId:match?.id||'',name,sets:3,reps:prescription||'See notes',rest:60,notes:[String(ex.notes||''),ex.rest?'Rest: '+ex.rest:'',w.focus?'Week focus: '+w.focus:''].filter(Boolean).join(' · ')};
+    })});
+   }
+  }
+  if(!days.length)throw Error('No sessions in this programme.');
+  if(db.drafts[id]?.days?.some(d=>d.exercises?.length)&&!confirm('Replace the existing unsaved draft for '+chosen.name+'? Saved approved programmes remain unchanged.')){
+    reply({action:'transfer-result',ok:false,error:'Transfer cancelled; existing draft preserved.'});return;
+  }
+  clientId=id;programmeId='';editDay=0;
+  db.drafts[id]={structure:String(data.name||'Specialist programme'),days,creationMode:'manual',specialistSource:data.trainingType,specialistSummary:data.summary};
+  await save();tab='Programme Creator';render();
+  reply({action:'transfer-result',ok:true,clientName:chosen.name,days:days.length});
+ }catch(err){reply({action:'transfer-result',ok:false,error:err.message})}
+});
 function shell(){ $('nav').innerHTML=tabs.map(t=>`<button class="${t===tab?'active':''}" data-tab="${esc(t)}">${esc(t)}</button>`).join('');$('app').innerHTML=`<div id="view"></div><div class="tiny muted no-print" id="savedStatus">Stored locally in this browser · Back up regularly</div>`;renderView()}
 function render(){shell()}
 function renderView(){const v=$('view');if(!v)return;const fn=({ 'Clients':viewClients,'Exercise Database':viewExercises,'Programme Creator':viewCreator,'Edit & Print':viewEdit,'Workout Mode':viewWorkout,'Training Record':viewRecords,'Templates':viewTemplates,'Fitness Calculators':viewCalculators,'Challenges':viewChallenges,'Mini-App':viewMini,'Coaching Centre':viewCoaching,'Data & Backup':viewData})[tab];v.innerHTML=fn();if(tab==='Programme Creator'){const pane=$('creatorAiPanel');if(pane){pane.open=sessionStorage.getItem('fpm_creator_ai_open')==='1';pane.addEventListener('toggle',()=>{sessionStorage.setItem('fpm_creator_ai_open',pane.open?'1':'0');if(pane.open)aiRestoreView()});if(pane.open)aiRestoreView()}}}

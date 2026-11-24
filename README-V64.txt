@@ -1,0 +1,1 @@
+V64 merge: V63 interface and AI retained; V45 direct specialist transfer restored; V46 successful dummy Firestore probe integrated. No real cloud upload, restore or automatic sync enabled. Test on Test Hub only. Same GitHub Pages origin can share localStorage and IndexedDB with main app: use dummy clients only if isolated browser profile; do not modify real records.

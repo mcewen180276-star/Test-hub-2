@@ -1,0 +1,16 @@
+/* Layout only: no storage or programme changes. */
+@media screen {
+body{max-width:none!important;box-sizing:border-box} .shell{max-width:none!important;padding:6px!important} iframe{max-width:100%;box-sizing:border-box}
+body.v79-embedded{padding:4px!important;margin:0!important} body.v79-embedded>header{display:none!important}
+body.v79-embedded>.card,body.v79-embedded>section.card,body.v79-embedded>details.card{padding:8px!important;margin:5px 0!important;min-width:0}
+#classBuilderStudioFrame,#circuitStudioFrame,#pilatesStudioFrame,#seniorsStudioFrame{border:0!important;border-radius:0!important;width:100%!important}
+#circuitStudioHost>div:first-child{display:none!important} #circuitStudioHost{padding:0!important;margin:0!important}
+#tabs.v79-tabs{display:flex!important;gap:6px!important;overflow:visible!important;position:static!important;margin:4px 0!important;padding:0!important} #tabs.v79-tabs>button[data-type]{display:none!important} #tabs.v79-tabs select{flex:1;min-width:0}
+#circuitV53Nav,#instructorQuickBar{position:static!important;inset:auto!important;margin:4px 0!important;padding:4px!important;box-shadow:none!important;flex-wrap:wrap!important;overflow:visible!important;min-height:0!important} #circuitV53Nav button{flex:1 1 auto!important;min-width:0!important;font-size:12px!important;padding:7px!important}
+#setupSection .setup-fields{gap:6px!important} #setupSection input,#setupSection select{min-width:0!important;max-width:100%!important;padding:7px!important} #setupSection label{font-size:12px!important}
+.v79-shared{position:static!important;inset:auto!important;margin:4px 0!important;padding:7px 10px!important;font-size:12px!important;border-radius:7px!important;max-width:100%}
+#library>h2,#library>p.muted,#equipmentstudio>div:first-child{display:none!important} #equipmentstudio>iframe{border:0!important;border-radius:0!important}
+#exerciseSafeToolbar{position:relative!important;top:auto!important;z-index:20!important;margin:0 0 5px!important;padding:4px!important} #exerciseSafeToolbar .safe-scroll{display:flex!important;flex-wrap:wrap!important;gap:4px!important;overflow:visible!important} #exerciseSafeToolbar button,#exerciseSafeToolbar summary{font-size:12px!important;padding:7px!important;min-height:32px!important} #exerciseSafeToolbar .safe-popup{max-width:calc(100vw - 24px)!important;box-sizing:border-box} #exerciseSafeSearch{margin:4px 0!important;padding:3px!important} #exerciseSafeSearch label{display:none!important}
+#exerciseSafeContent .card{padding:5px!important;margin:4px 0!important} #exerciseList,#exerciseV25Results{gap:5px!important;grid-template-columns:repeat(auto-fill,minmax(125px,1fr))!important} .v76-tile{min-height:70px!important;padding:5px!important} .v76-tile img{height:48px!important} #equipmentManagerList .equipment-manager-grid{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))!important;gap:5px!important} #equipmentManagerList .equipment-manager-item{padding:5px!important;font-size:12px!important}
+.v79-fold{margin:4px 0;padding:5px;border:1px solid #aabdc5;border-radius:7px} .v79-fold>summary{cursor:pointer;font-weight:650;font-size:13px;padding:5px}
+}

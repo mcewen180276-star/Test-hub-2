@@ -14,3 +14,8 @@ body.v79-embedded>.card,body.v79-embedded>section.card,body.v79-embedded>details
 #exerciseSafeContent .card{padding:5px!important;margin:4px 0!important} #exerciseList,#exerciseV25Results{gap:5px!important;grid-template-columns:repeat(auto-fill,minmax(125px,1fr))!important} .v76-tile{min-height:70px!important;padding:5px!important} .v76-tile img{height:48px!important} #equipmentManagerList .equipment-manager-grid{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))!important;gap:5px!important} #equipmentManagerList .equipment-manager-item{padding:5px!important;font-size:12px!important}
 .v79-fold{margin:4px 0;padding:5px;border:1px solid #aabdc5;border-radius:7px} .v79-fold>summary{cursor:pointer;font-weight:650;font-size:13px;padding:5px}
 }
+@media screen {
+html,body{width:100%!important;max-width:100%!important;margin-inline:0!important;box-sizing:border-box}
+body>main.shell,body>main,body>.wrap,body>.shell{width:100%!important;max-width:none!important;min-width:0!important;margin-inline:0!important;box-sizing:border-box}
+main.shell>section{max-width:none!important;min-width:0!important;box-sizing:border-box}
+}

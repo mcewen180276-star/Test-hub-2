@@ -1,4 +1,4 @@
-const CACHE="fitness-hub-v79-"+self.registration.scope;
+const CACHE="fitness-hub-v80-"+self.registration.scope;
 const ASSETS=["./layout-v79.css", "./layout-v79.js","./shared-ui.js", "./embedded-tool.html", "./pilates-studio.html", "./hub-v63.css", "./specialist-icon.png", "./specialist-performance.html", "./ai-planning-studio.html", "./hub-install-v77.js", "./v74-cloud-sync.js", "./seniors-studio.html", "./yoga-icon.png", "./class-builder.html", "./class-mini-v66.js", "./specialist-centre.html", "./compact-v76.js", "./shared-exercises.js", "./index.html", "./hub-icon-192.png", "./circuit-studio.html", "./client-manager.html", "./hub-icon-512.png", "./hub-ai.js", "./v64-cloud-probe.js", "./manifest.webmanifest", "./yoga-studio.html", "./choreography.html", "./choreography-icon.png", "./manifest.json"];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
